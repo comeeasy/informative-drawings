@@ -101,8 +101,9 @@ with torch.no_grad():
     net_G.eval()
 
     
-    transforms_r = [transforms.Resize(int(opt.size), Image.BICUBIC),
-                   transforms.ToTensor()]
+    transforms_r = [transforms.ToTensor()]
+    # transforms_r = [transforms.Resize(int(opt.size), Image.BICUBIC),
+    #                transforms.ToTensor()]
 
 
     test_data = UnpairedDepthDataset(opt.dataroot, '', opt, transforms_r=transforms_r, 
