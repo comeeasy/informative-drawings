@@ -41,8 +41,8 @@ parser.add_argument('--which_epoch', type=str, default='latest', help='which epo
 parser.add_argument('--aspect_ratio', type=float, default=1.0, help='The ratio width/height. The final height of the load image will be crop_size/aspect_ratio')
 
 parser.add_argument('--mode', type=str, default='test', help='train, val, test, etc')
-parser.add_argument('--load_size', type=int, default=256, help='scale images to this size')
-parser.add_argument('--crop_size', type=int, default=256, help='then crop to this size')
+parser.add_argument('--load_size', type=int, default=1024, help='scale images to this size')
+parser.add_argument('--crop_size', type=int, default=1024, help='then crop to this size')
 parser.add_argument('--max_dataset_size', type=int, default=float("inf"), help='Maximum number of samples allowed per dataset. If the dataset directory contains more than max_dataset_size, only a subset is loaded.')
 parser.add_argument('--preprocess', type=str, default='resize_and_crop', help='scaling and cropping of images at load time [resize_and_crop | crop | scale_width | scale_width_and_crop | none]')
 parser.add_argument('--no_flip', action='store_true', help='if specified, do not flip the images for data augmentation')
@@ -115,7 +115,8 @@ with torch.no_grad():
 
     ###### Testing######
 
-    full_output_dir = os.path.join(opt.results_dir, opt.name)
+    # full_output_dir = os.path.join(opt.results_dir, opt.name)
+    full_output_dir = opt.results_dir
 
     if not os.path.exists(full_output_dir):
         os.makedirs(full_output_dir)
@@ -131,7 +132,7 @@ with torch.no_grad():
         
         input_image = real_A
         image = net_G(input_image)
-        save_image(image.data, full_output_dir+'/%s_out.png' % name)
+        save_image(image.data, full_output_dir+'/%s.png' % name)
 
         if (opt.predict_depth == 1):
 
